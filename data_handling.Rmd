@@ -1,0 +1,6 @@
+---
+title: "data_handling"
+author: "kazutan"
+date: "2015年11月17日"
+output: html_document
+---
