@@ -1,0 +1,208 @@
+---
+title: "ggplot2を使ってみよう"
+subtitle: "Hijiyama.R #3"
+author: "kazutan"
+date: "2015年11月28日"
+output: 
+  html_document:
+    theme: "cosmo"
+    toc: true
+    toc_depth: 2
+    number_section: true
+  revealjs::revealjs_presentation:
+    theme: serif
+    center: false
+    transition: slide
+    highlight: zenburn
+    toc: true
+    pandoc_args: [
+      "--from", "markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures"
+    ]
+    css: "for-revealjs.css"
+---
+
+## プロット作成
+- Rには標準で多様なプロットを作成可能
+- 様々なところで説明されています
+    - Hiroshima.R #3 の[初心者セッションスライド](http://wwww.slideshare.net/sakaue/hiroshimar3intror)
+    - 82枚目あたりから解説されています
+- 今日は可視化のパッケージ`{ggplot2}`を紹介します
+
+## さっそくプロット
+
+<div class="no-column">
+```{r eval=FALSE}
+library(ggplot2)
+ggplot(iris, aes(y=Petal.Length, x=Sepal.Length)) +
+  geom_point()
+```
+</div>
+<div class="column1">
+```{r echo=FALSE}
+library(ggplot2)
+ggplot(iris,aes(y=Petal.Length,x=Sepal.Length)) +
+  geom_point()
+```
+</div>
+<div class="column2">
+- さっくりできた!
+</div>
+
+## 解説
+
+```{r eval=FALSE}
+ggplot(iris, aes(y=Petal.Length, x=Sepal.Length)) +
+  geom_point()
+```
+
+### ggplot2はレイヤー構造
+- 一行目: 基本レイヤー
+    - 可視化するデータを指定します
+    - aes()の中で、x軸の変数とy軸の変数を指定
+- 二行目: プロット方法
+    - `geom_point()`で「散布図書いて」となる
+    - 他のは後述
+
+## 水準ごとで分けたい
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris, aes(y=Petal.Length, x=Sepal.Length, col=Species)) +
+  geom_point()
+```
+</div>
+<div class="column1">
+- Speciesの内容ごとで色分けされた!
+    - aes()内に`col=Species`を追加
+    - これは「色をSpeciesで塗り分けて」という意味になる
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris,aes(y=Petal.Length,x=Sepal.Length, col=Species)) +
+  geom_point()
+```
+</div>
+
+
+## ラベルを設定したい
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris, aes(y=Petal.Length, x=Sepal.Length, col=Species)) +
+  geom_point() +
+  labs(title="iris-tan", x="yokoyoko", y="tatetate")
+```
+</div>
+<div class="column1">
+- 表のタイトル、x軸ラベル、y軸ラベルが設定されます
+- このほか様々な設定が可能です
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris,aes(y=Petal.Length,x=Sepal.Length, col=Species)) +
+  geom_point() + 
+  labs(title="iris-tan", x="yokoyoko", y="tatetate")
+```
+</div>
+
+
+## 背景テーマ変更 + 文字を大きく
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris,aes(y=Petal.Length,x=Sepal.Length, col=Species)) +
+  geom_point() + 
+  theme_bw(base_size = 20)
+```
+</div>
+<div class="column1">
+- theme_*でテーマ設定
+    - theme_bw()は黒白テーマ
+    - base_sizeで基本の文字サイズ変更(デフォルトは12)
+    - base_familyでフォントファミリー変更可能(省略)
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris,aes(y=Petal.Length,x=Sepal.Length, col=Species)) +
+  geom_point() + 
+  theme_bw(base_size = 20)
+```
+</div>
+
+## 箱ひげ図を出したい
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris, aes(y=Petal.Length,x=Species)) +
+  geom_boxplot()
+```
+</div>
+<div class="column1">
+- geom_boxplot()で箱ひげ図
+    - x軸にはfactor型というデータ形式で
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris, aes(y=Petal.Length,x=Species)) +
+  geom_boxplot()
+```
+</div>
+
+
+## 箱ひげ図にさらに追加
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris, aes(y=Petal.Length,x=Species)) +
+  geom_boxplot() + geom_jitter()
+```
+</div>
+<div class="column1">
+- geom_boxplot()で箱ひげ図
+    - x軸にはfactor型というデータ形式で
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris, aes(y=Petal.Length,x=Species)) +
+  geom_boxplot() + geom_jitter()
+```
+</div>
+
+
+## 棒グラフを出したい(度数分布表)
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris, aes(Petal.Length)) +
+  geom_bar()
+```
+</div>
+<div class="column1">
+- geom_bar()でバーチャート
+    - ターゲット変数を基本レイヤーのaes()内で指定
+    - この場合は各値の頻度を累積してカウントしてます
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris, aes(Petal.Length)) +
+  geom_bar()
+```
+</div>
+
+
+## 棒グラフを出したい(平均値の棒グラフ)
+<div class="no-column">
+```{r eval=FALSE}
+ggplot(iris, aes(y=Petal.Length, x=Species)) +
+  stat_summary(fun.y=mean,geom="bar")
+```
+</div>
+<div class="column1">
+- stat_summary()で、データを要約して可視化
+    - おおざっぱに例えると「f(y)=mean(y)として要約して棒にして」
+</div>
+<div class="column2">
+```{r echo=FALSE}
+ggplot(iris, aes(y=Petal.Length, x=Species)) +
+  stat_summary(fun.y=mean,geom="bar")
+```
+</div>
+
+## もっと!もっと!
+- ぜひ自分で調べてみましょう
+- ggplot2について厳選したリンク集を作成しました  
+[ggplot2に関する資料まとめ](http://qiita.com/kazutan/items/c42031ec54be283efd4f)
