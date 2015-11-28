@@ -4,7 +4,9 @@
 
 ## 初心者セッション(スライドへのリンク)
 - [データハンドリング入門](https://kazutan.github.io/HijiyamaR3/data_handling_s.html)
+    - [htmlドキュメント形式はこちら](https://kazutan.github.io/HijiyamaR3/data_handling_d.html)
 - [ggplot2を使ってみよう](https://kazutan.github.io/HijiyamaR3/ggplot2_s.html)
+    - [htmlドキュメント形式はこちら](https://kazutan.github.io/HijiyamaR3/ggplot2_d.html)
 
 ## LT(htmlドキュメントへのリンク)
 - [leafletではじめる地図プロット](https://kazutan.github.io/HijiyamaR3/leaflet_lite_s.html)
