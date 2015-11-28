@@ -170,7 +170,7 @@ m %>%
 - RStudio上で実行するとPlotsに表示される
 - これを"Export▼"から"Web Page..."を選択
 - htmlファイル(中身はleaflet出力地図のみ)が生成
-    - これを他のhtmlファイルに<iframe>などで放り込む
+    - これを他のhtmlファイルにiframeなどで放り込む
 
 ## R Markdown
 - これが一番楽です
