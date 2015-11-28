@@ -59,6 +59,14 @@ span.header-section-number {
   width: 48%;
 }
 
+/* for htmlwidgets to iframe */
+.reveal .slides iframe {
+	height: 450px;
+	width: 100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
 /* botsu */
 /*
 .reveal .slides section .column {
