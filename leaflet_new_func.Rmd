@@ -1,0 +1,43 @@
+---
+title: "leaflet1.0.1を試してみた"
+author: "kazutan"
+date: "2015年11月25日"
+output: html_document
+---
+
+開発版の新機能で気付いたものを試してみた。
+
+```{r,echo=FALSE}
+library(leaflet)
+
+iconSet <- awesomeIconList(
+	beer = makeAwesomeIcon(icon='ion-beer', library = "ion"),
+	power = makeAwesomeIcon(icon='ion-power', library = "ion")
+)
+
+data = data.frame(
+	lng=rnorm(5,mean = 0, sd = 0.5)+135,
+	lat=rnorm(5,mean = 0, sd = 0.5)+35
+)
+
+leaflet(data) %>% 
+	addTiles() %>% 
+	setView(lng=135, lat=35, zoom=7) %>% 
+	addMiniMap(zoomLevelFixed = 4) %>% 
+	addScaleBar(position="bottomleft") %>% 
+	addAwesomeMarkers(lng=~lng,lat=~lat,icon=iconSet) %>% 
+	addMeasure(
+		position = "bottomleft"
+		, primaryLengthUnit = "meters"
+		, primaryAreaUnit = "sqmeters"
+		, activeColor = "#3D535D"
+		, completedColor = "#7D4479"
+	)
+```
+
+- ミニマップ
+- スケールバー
+- メジャー(距離測定)
+- アイコンマーカー
+
+これらの説明はJapan.R 2015でする予定です。
